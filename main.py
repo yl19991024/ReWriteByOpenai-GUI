@@ -11,10 +11,6 @@ import wget
 import time, hashlib
 from qiniu import Auth, put_file, etag
 
-access_key = '_kE1kDRGOVlOrEjhd8Y2gUYzyvoy0od274RTC8Py'
-secret_key = '4s-v5JfrhLf5c6WCQ507OMHd-_LLIKtZ0LjFEg3I'
-openai_api_key = "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"
-
 # 移动p1段落到p2段落后面
 def move_paragraph_after(para1, para2):
     """移动p1段落到p2段落后面"""
