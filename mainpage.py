@@ -75,6 +75,14 @@ class App(tk.Frame):
     def change_config(self):
         SubPage(root)
 
+    def check_thread(self,t:threading):
+        if t.is_alive():
+            # 子线程还在执行
+            root.after(500, self.check_thread,t)
+        else:
+            # 子线程执行结束
+            self.run_button.config(state=tk.NORMAL)
+
     def run(self):
         filpath = self.path_entry.get()
         if filpath=='':
@@ -88,6 +96,7 @@ class App(tk.Frame):
                 # t = threading.Thread(target=processing(filpath,host=params['host'],key=params["key"],prompt=params['prompt'],select_mode=params['select_mode'],write_mode=params['write_mode']))
                 t = threading.Thread(target=processing,kwargs={'file': filpath, 'flag': params['flag'],'key':params['key'],'prompt':params['prompt'],'select_mode':params['select_mode'],"write_mode":params['write_mode']})
                 t.start()
+                root.after(100, self.check_thread,t)
             else:
                 # 在主界面中添加按钮，点击可以打开子页面
                 print("不存在配置文件")

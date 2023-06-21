@@ -38,7 +38,7 @@ def insert_paragraph_after(paragraph, text=None):
 def getResult(rw:str,flag:bool="True",key:str="",prompt:str="")->str:
     # 使用第三方服务
     if flag:
-        sleeptime=1
+        sleeptime=0
         openai.api_base = 'https://api.closeai-asia.com/v1'
         openai.api_key = key
     # openai.host=host
@@ -157,7 +157,6 @@ def processing(file, flag,key,prompt="重写：", select_mode="only_red", write_
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
     logging.basicConfig(filename='%s.log' % time.strftime("%m%d"), level=logging.INFO, format=LOG_FORMAT)
     # 打开docx文档
-    # filename="T证券公司财务共享服务中心优化研究 - 部分内容"
     doc = docx.Document(file)
     count=0
     total=len(doc.paragraphs)
@@ -224,7 +223,7 @@ if __name__ == '__main__':
     # 所有参数
     select_mode = "only_red"
     write_mode = "insert"
-    pmt = "重写下面文字，使之与原文的差异尽可能大："
+    pmt = "我希望你能充当一个认真仔细的改重资深工作人员，你需要将不同方法融合起来将这段文字词和短语进行彻底全面细致改写，具体方法有同义词替换、详细阐述、换角度描述、增加过度语句等，使得与原来的内容不会被认定为抄袭，同时要确保语句通顺，内容符合逻辑"
 
     file = r"./企业流转土地规模经营失败的原因探究(1).docx"
     result_file_path = processing(file,prompt=pmt, select_mode=select_mode, write_mode=write_mode)
